@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.PhotonCommand;
 import frc.robot.commands.SwerveDrive;
+import frc.robot.subsystems.Photon;
 import frc.robot.subsystems.SwerveSubsystem;
 
 /**
@@ -21,6 +23,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class RobotContainer {
 
   SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  Photon photonSubsystem = new Photon();
 
   public static boolean fieldRelativeDriving = false;
 
@@ -41,9 +44,15 @@ public class RobotContainer {
                     xbox1::getLeftX,
                     xbox1::getRightX,
                     fieldRelativeDriving));
+    photonSubsystem.setDefaultCommand(            
+            new PhotonCommand(
+                    photonSubsystem,
+                    xbox1.x()));
     // Configure the trigger bindings
     configureBindings();
   }
+
+  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
